@@ -1,0 +1,59 @@
+.lab1 {
+    width: 500px;
+    margin-left: 35%;
+    margin-top: 5%;
+}
+
+b{
+    color: #455d7a;
+    font-size: 32px;
+}
+
+.fInput {
+    width: 92%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 3px solid #455d7a;
+    border-radius: 9px;
+    font-size: 20px;
+    color: dimgrey;
+}
+
+.addButton {
+    margin-top: 15px;
+    border: 2px solid #e3e3e3;
+    border-radius: 50%;
+    background-color: #f95959;
+    padding: 5px;
+    font-size: 40px;
+    color: #e3e3e3;
+    height: 60px;
+    width: 60px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in 0.3s;
+}
+
+.submitButton {
+    margin-left: 48%;
+    border: 2px solid #e3e3e3;
+    border-radius: 6px;
+    background-color: #f95959;
+    padding: 5px;
+    font-size: 30px;
+    color: #e3e3e3;
+    height: 60px;
+    width: 200px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in 0.1s;
+}
+
+.addButton:hover {
+    background-color: #A93838;
+}
+.submitButton:hover{
+    background-color: #A93838;
+}
+
+
+
+
