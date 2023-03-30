@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import './lab01.css'
 
-export const Lab01 = () =>{
+export const Lab01 = () => {
 
     const [key, setKey] = useState('')
     const [inputText, setInputText] = useState('')
@@ -12,10 +12,10 @@ export const Lab01 = () =>{
     const [decryptedText, setDecryptedText] = useState('')
     const [inputError, setInputError] = useState(false)
 
-    useEffect(()=>{
-        if(key.length > 0 && inputText.length > 0) {
+    useEffect(() => {
+        if (key.length > 0 && inputText.length > 0) {
             setDecryptedText('')
-           playfairEncode()
+            playfairEncode()
         }
     }, [key, inputText])
 
@@ -23,10 +23,10 @@ export const Lab01 = () =>{
         setEncryptedText('')
         setPlayfairSquare([])
         setSplitText('')
-        if (/[^a-z]/i.test(inputText) || /[^a-z]/i.test(key)){
+        if (/[^a-z]/i.test(inputText) || /[^a-z]/i.test(key)) {
             setInputError(true)
             console.log(1)
-        }else {
+        } else {
             setInputError(false)
             const kMatrix = constructKeyMatrix()
             setKeyMatrix(kMatrix)
@@ -46,11 +46,11 @@ export const Lab01 = () =>{
     const constructKeyMatrix = () => {
 
         const alphabet = 'abcdefghifklmnopqrstuvwxyz'
-        let resultKey = key.replace(/\s/g, '').toLowerCase() + alphabet
+        let resultKey = key.toLowerCase() + alphabet
         resultKey = resultKey.replace(/j/g, 'i')
 
-        for (let i = 0; i< resultKey.length; i++){
-            if(resultKey.indexOf(resultKey[i]) !== i){
+        for (let i = 0; i < resultKey.length; i++) {
+            if (resultKey.indexOf(resultKey[i]) !== i) {
                 resultKey = resultKey.slice(0, i) + resultKey.slice(i + 1)
                 i--
             }
@@ -60,10 +60,10 @@ export const Lab01 = () =>{
 
     const editPlain = () => {
 
-        let plaintText = inputText.replace(/\s/g, '').toLowerCase()
+        let plaintText = inputText.toLowerCase()
 
-        for (let i = 0; i < plaintText.length - 1; i += 2){
-            if (plaintText[i] === plaintText[i + 1]){
+        for (let i = 0; i < plaintText.length - 1; i += 2) {
+            if (plaintText[i] === plaintText[i + 1]) {
                 plaintText = plaintText.slice(0, i + 1) + 'x' + plaintText.slice(i + 1)
             }
         }
@@ -79,7 +79,7 @@ export const Lab01 = () =>{
 
     const encryptPlayfair = (kMatrix, plainText) => {
         let ciphertext = ''
-        for (let i = 0; i < plainText.length - 1; i += 2){
+        for (let i = 0; i < plainText.length - 1; i += 2) {
             let i1, i2, j1, j2
 
             i1 = kMatrix.indexOf(plainText[i]) / 5 | 0
@@ -89,12 +89,12 @@ export const Lab01 = () =>{
             j2 = kMatrix.indexOf(plainText[i + 1]) % 5
 
             //same row => row num * 5 + (col num + 1) % 5 => to shift right
-            if(i1 == i2) {
+            if (i1 == i2) {
                 ciphertext += kMatrix[i1 * 5 + (j1 + 1) % 5] + kMatrix[i2 * 5 + (j2 + 1) % 5]
             }
 
             //same column => ((row num + 1) % 5) * 5 + col num * 5  => to shift down
-            else if(j1 == j2) {
+            else if (j1 == j2) {
                 ciphertext += kMatrix[((i1 + 1) % 5) * 5 + j1] + kMatrix[((i2 + 1) % 5) * 5 + j2]
             }
 
@@ -110,7 +110,7 @@ export const Lab01 = () =>{
     const decryptPlayfair = () => {
 
         let plainText = ''
-        for (let i = 0; i < encryptedText.length - 1; i += 2){
+        for (let i = 0; i < encryptedText.length - 1; i += 2) {
             let i1, i2, j1, j2
             i1 = keyMatrix.indexOf(encryptedText[i]) / 5 | 0
             j1 = keyMatrix.indexOf(encryptedText[i]) % 5
@@ -119,15 +119,15 @@ export const Lab01 = () =>{
             j2 = keyMatrix.indexOf(encryptedText[i + 1]) % 5
 
             //same row => row num * 5 + (col num - 1) * 5 => to shift left
-            if(i1 == i2) {
-                plainText += j1!==0 ? keyMatrix[i1 * 5 +  (j1 - 1) % 5] : keyMatrix[i1 * 5 + 4]
-                plainText += j2!==0 ? keyMatrix[i2 * 5 + (j2 - 1) % 5] : keyMatrix[i2 * 5 + 4]
+            if (i1 == i2) {
+                plainText += j1 !== 0 ? keyMatrix[i1 * 5 + (j1 - 1) % 5] : keyMatrix[i1 * 5 + 4]
+                plainText += j2 !== 0 ? keyMatrix[i2 * 5 + (j2 - 1) % 5] : keyMatrix[i2 * 5 + 4]
             }
 
             //same column => ((row num - 1) % 5) * 5 + col num * 5 => to shift up
-            else if(j1 == j2) {
-                plainText += i1!==0 ? keyMatrix[((i1 - 1) % 5)*5 + j1] : keyMatrix[20 + j1]
-                plainText += i2!==0 ? keyMatrix[((i2 - 1) % 5)*5 + j2] : keyMatrix[20 + j2]
+            else if (j1 == j2) {
+                plainText += i1 !== 0 ? keyMatrix[((i1 - 1) % 5) * 5 + j1] : keyMatrix[20 + j1]
+                plainText += i2 !== 0 ? keyMatrix[((i2 - 1) % 5) * 5 + j2] : keyMatrix[20 + j2]
             }
 
             //same algorithm
@@ -144,23 +144,23 @@ export const Lab01 = () =>{
         setKey(event.target[0].value)
         setInputText(event.target[1].value)
     }
-    return(
+    return (
         <div>
-            <form className="lab1" onSubmit = {afterSubmission}>
+            <form className="lab1" onSubmit={afterSubmission}>
                 <b>Input key</b>
                 <input id="indexTermsInp"
                        className='fInput'
-                       type="text" >
+                       type="text">
                 </input>;
                 <b>Input string to encrypt</b>
                 <input id="indexTermsInp"
                        className='fInput'
-                       type="text" >
+                       type="text">
                 </input>;
                 {inputError ? (
-                    <div style={{marginTop : '-30px'}}>
+                    <div style={{marginTop: '-30px'}}>
                         <p style={{fontSize: '13pt', color: '#f95959'}}>*Key and string can only contain letters</p>
-                    </div>):<div/>}
+                    </div>) : <div/>}
                 <button className="encryptButton">ENCRYPT</button>
             </form>
             {
@@ -183,7 +183,7 @@ export const Lab01 = () =>{
                             </tbody>
                         </table>
                     </div>
-                )  : <div/>
+                ) : <div/>
             }
             {
                 splitText.length > 0 ? (
@@ -191,26 +191,28 @@ export const Lab01 = () =>{
                         <p>Split text:</p>
                         <p style={{marginLeft: '1%'}} className='splitText'>{splitText}</p>
                     </div>
-                ) :<div/>
+                ) : <div/>
             }
             {
                 encryptedText.length > 0 ? (
                     <div>
                         <div style={{display: 'flex'}}>
-                        <p style={{fontSize: '28px'}}>Encrypted text:</p>
-                        <p className='result' style={{marginLeft: '1%'}}>{encryptedText.toUpperCase()}</p>
+                            <p style={{fontSize: '28px'}}>Encrypted text:</p>
+                            <p className='result' style={{marginLeft: '1%'}}>{encryptedText.toUpperCase()}</p>
                         </div>
-                        <button className="decryptButton" onClick={decryptPlayfair}>DECRYPT</button>
+                        <button style={{marginLeft: '52%'}} className="encryptButton"
+                                onClick={decryptPlayfair}>DECRYPT
+                        </button>
                     </div>
-                ) :<div/>
+                ) : <div/>
             }
             {
                 decryptedText.length > 0 ? (
                     <div style={{display: 'flex'}}>
                         <p style={{fontSize: '28px'}}>Decrypted text:</p>
-                        <p className='result'  style={{marginLeft: '1%'}}>{decryptedText.toUpperCase()}</p>
+                        <p className='result' style={{marginLeft: '1%'}}>{decryptedText.toUpperCase()}</p>
                     </div>
-                ): <div/>
+                ) : <div/>
             }
         </div>
     )
