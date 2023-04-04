@@ -25,7 +25,6 @@ export const Lab01 = () => {
         setSplitText('')
         if (/[^a-z]/i.test(inputText) || /[^a-z]/i.test(key)) {
             setInputError(true)
-            console.log(1)
         } else {
             setInputError(false)
             const kMatrix = constructKeyMatrix()
