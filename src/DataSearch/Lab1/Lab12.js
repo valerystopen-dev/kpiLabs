@@ -9,8 +9,8 @@ export const Lab12 = () => {
     const [threshold, setThreshold] = useState(0.1)
     const [searchResult, setSearchResult] = useState([])
 
-    useEffect(()=>{
-        if(searchQuery.length>0){
+    useEffect(() => {
+        if (searchQuery.length > 0) {
             performSearch()
         }
     }, [searchQuery])
@@ -70,13 +70,13 @@ export const Lab12 = () => {
                 const includesWordNum = allSentences.filter((sentence) =>
                     sentence.includes(word)
                 ).length;
-                if(includesWordNum > maxWordsNum){
+                if (includesWordNum > maxWordsNum) {
                     maxWordsNum = includesWordNum
                 }
             })
         })
 
-        words.forEach((word)=> {
+        words.forEach((word) => {
             let count = 0;
             const denominator = getDenominator(word, allSentences);
             allSentences.forEach((sentenceTerms) => {
@@ -93,15 +93,15 @@ export const Lab12 = () => {
 
         vectors.forEach((vector, index) => {
             const value = cosSimilarity(vectors[vectors.length - 1], vector);
-            if (value > threshold && index !== vector.length-2) {
+            if (value > threshold && index !== vector.length - 2) {
                 result.push([documentCollections[index], value]);
             }
         })
-        setSearchResult(result) ;
+        setSearchResult(result);
     }
 
     const handleDocumentChange = (evt, key) => {
-        if(documentCollections[key] !== evt.target.value){
+        if (documentCollections[key] !== evt.target.value) {
             const newArr = documentCollections
             newArr[key] = evt.target.value
             setDocumentCollections(newArr)
@@ -109,20 +109,19 @@ export const Lab12 = () => {
     }
 
     const handleAddClick = (evt) => {
-        if(visiblePart === 1 && counter === documentCollections.length)
-        {
+        if (visiblePart === 1 && counter === documentCollections.length) {
             setCounter(counter + 1);
         }
     };
 
     const handleNext = () => {
-        if(visiblePart === 1 && documentCollections.length > 0) {
+        if (visiblePart === 1 && documentCollections.length > 0) {
             setCounter(1)
             setVisiblePart(visiblePart + 1)
         }
     }
 
-    const handleSubmit = (event) =>{
+    const handleSubmit = (event) => {
         event.preventDefault();
         setSearchQuery(event.target[0].value)
     }
@@ -131,9 +130,9 @@ export const Lab12 = () => {
         event.preventDefault();
     }
 
-    return(
+    return (
         <div>
-            {visiblePart === 1 ? <form className="lab1" onSubmit = {afterSubmission}>
+            {visiblePart === 1 ? <form className="lab1" onSubmit={afterSubmission}>
                 <b>1. Input document collections</b>
                 {Array.from(Array(counter)).map((el, c) => {
                     return <input id="documentInp"
@@ -146,8 +145,8 @@ export const Lab12 = () => {
                 <button className="addButton" onClick={handleAddClick}>+</button>
                 <button className="submitButton" onClick={handleNext}>NEXT</button>
             </form> : <div/>}
-            { visiblePart===2 ?
-                <form className="lab1" onSubmit = {handleSubmit}>
+            {visiblePart === 2 ?
+                <form className="lab1" onSubmit={handleSubmit}>
                     <b>2. Input search query</b>
                     <input id="searchInp"
                            className='fInput'
@@ -159,7 +158,7 @@ export const Lab12 = () => {
                 <div>
                     <div className='lab1' style={{display: 'inline'}}>
                         <b>Documents: </b>
-                        {documentCollections.map((doc)=>{
+                        {documentCollections.map((doc) => {
                             return <p style={{color: 'white'}}>{doc}</p>
                         })}
                     </div>
